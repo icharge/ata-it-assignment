@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: charge
+      changes:
+        - createTable:
+            tableName: validation_rule
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: instrument_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: whole_digits
+                  type: INT
+              - column:
+                  name: decimal_digits
+                  type: INT
+              - column:
+                  name: max_amount
+                  type: DECIMAL(18, 4)
+              - column:
+                  name: min_amount
+                  type: DECIMAL(18, 4)
+              - column:
+                  name: price_deviation_percent
+                  type: FLOAT
+        - addForeignKeyConstraint:
+            baseTableName: validation_rule
+            baseColumnNames: instrument_id
+            referencedTableName: instrument
+            referencedColumnNames: id
+            constraintName: fk_validation_rule_instrument

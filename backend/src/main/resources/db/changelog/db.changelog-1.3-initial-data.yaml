@@ -1,0 +1,118 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: charge
+      changes:
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: a1b2c3d4-0001-0000-0000-000000000001
+              - column:
+                  name: name
+                  value: Real Estate Fund
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: a1b2c3d4-0002-0000-0000-000000000002
+              - column:
+                  name: name
+                  value: Tech Index Fund
+              - column:
+                  name: type
+                  value: INDEX_FUND
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: a1b2c3d4-0003-0000-0000-000000000003
+              - column:
+                  name: name
+                  value: Government Bond 10Y
+              - column:
+                  name: type
+                  value: FIXED_INCOME
+
+        - insert:
+            tableName: validation_rule
+            columns:
+              - column:
+                  name: id
+                  value: 00000000-0000-0000-0000-000000000001
+              - column:
+                  name: instrument_id
+                  value: a1b2c3d4-0001-0000-0000-000000000001
+              - column:
+                  name: whole_digits
+                  value: 3
+              - column:
+                  name: decimal_digits
+                  value: 2
+              - column:
+                  name: max_amount
+                  value: 100000
+              - column:
+                  name: min_amount
+                  value: 100
+              - column:
+                  name: price_deviation_percent
+                  value: null
+
+        - insert:
+            tableName: validation_rule
+            columns:
+              - column:
+                  name: id
+                  value: 00000000-0000-0000-0000-000000000002
+              - column:
+                  name: instrument_id
+                  value: a1b2c3d4-0002-0000-0000-000000000002
+              - column:
+                  name: whole_digits
+                  value: 4
+              - column:
+                  name: decimal_digits
+                  value: 2
+              - column:
+                  name: max_amount
+                  value: 500000
+              - column:
+                  name: min_amount
+                  value: 500
+              - column:
+                  name: price_deviation_percent
+                  value: null
+
+        - insert:
+            tableName: validation_rule
+            columns:
+              - column:
+                  name: id
+                  value: 00000000-0000-0000-0000-000000000003
+              - column:
+                  name: instrument_id
+                  value: a1b2c3d4-0003-0000-0000-000000000003
+              - column:
+                  name: whole_digits
+                  value: null
+              - column:
+                  name: decimal_digits
+                  value: 2
+              - column:
+                  name: max_amount
+                  value: 200000
+              - column:
+                  name: min_amount
+                  value: 1000
+              - column:
+                  name: price_deviation_percent
+                  value: 5.0

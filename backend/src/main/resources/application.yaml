@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: funds
+  datasource:
+    url: jdbc:postgresql://db:5432/funds_db
+    username: pguser
+    password: pgpassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
