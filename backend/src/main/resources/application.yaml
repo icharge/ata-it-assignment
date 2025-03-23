@@ -24,3 +24,6 @@ springdoc:
   swagger-ui:
     path: /docs/swagger-ui.html
 
+logging:
+  level:
+    com.atait.assignment: DEBUG

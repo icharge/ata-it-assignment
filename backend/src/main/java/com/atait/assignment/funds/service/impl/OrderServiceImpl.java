@@ -6,6 +6,9 @@ import com.atait.assignment.funds.entity.FundOrder;
 import com.atait.assignment.funds.entity.Instrument;
 import com.atait.assignment.funds.entity.InstrumentType;
 import com.atait.assignment.funds.entity.ValidationRule;
+import com.atait.assignment.funds.exception.InstrumentValidationRuleAbsentException;
+import com.atait.assignment.funds.exception.NotFoundInstrumentException;
+import com.atait.assignment.funds.exception.OrderValidationException;
 import com.atait.assignment.funds.repository.FundOrderRepository;
 import com.atait.assignment.funds.repository.InstrumentRepository;
 import com.atait.assignment.funds.repository.ValidationRuleRepository;
@@ -14,6 +17,7 @@ import com.atait.assignment.funds.service.OrderService;
 import com.atait.assignment.funds.service.PricingService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -38,16 +43,14 @@ public class OrderServiceImpl implements OrderService {
 
         Optional<Instrument> instrumentOpt = instrumentRepo.findById(request.getInstrumentId());
         if (instrumentOpt.isEmpty()) {
-            return OrderResponse.failure("Instrument not found");
+            throw new NotFoundInstrumentException(request.getInstrumentId());
         }
 
         Instrument instrument = instrumentOpt.get();
-        ValidationRule rule;
-        try {
-            rule = ruleRepo.getReferenceById(instrument.getId());
-        } catch (EntityNotFoundException e) {
-            return OrderResponse.failure("Validation rule not found");
-        }
+        ValidationRule rule = ruleRepo.getByInstrument(instrument);
+
+        log.debug("Instrument: {}", instrument);
+        log.debug("Validation rule: {}", rule);
 
         // Validate formatting
         if (rule.getWholeDigits() != null) {
@@ -83,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         if (!errors.isEmpty()) {
-            return OrderResponse.failure(errors);
+            throw new OrderValidationException(errors);
         }
 
         // Save order
