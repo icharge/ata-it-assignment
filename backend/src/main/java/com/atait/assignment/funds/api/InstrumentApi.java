@@ -1,6 +1,6 @@
 package com.atait.assignment.funds.api;
 
-import com.atait.assignment.funds.entity.Instrument;
+import com.atait.assignment.funds.dto.InstrumentResponse;
 import com.atait.assignment.funds.entity.InstrumentType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,10 +16,10 @@ public interface InstrumentApi {
 
     @GetMapping
     @Operation(summary = "Get all instruments", description = "Returns all Mutual Funds, Index Funds, and Fixed Income instruments")
-    List<Instrument> getAll();
+    List<InstrumentResponse> getAll();
 
     @GetMapping("/type/{type}")
     @Operation(summary = "Get instruments by type", description = "Filter instruments by type (MUTUAL_FUND, INDEX_FUND, FIXED_INCOME)")
-    List<Instrument> getByType(@PathVariable InstrumentType type);
+    List<InstrumentResponse> getByType(@PathVariable InstrumentType type);
 
 }
