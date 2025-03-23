@@ -1,21 +1,21 @@
 package com.atait.assignment.funds.service.impl;
 
+import com.atait.assignment.funds.dto.OrderDto;
 import com.atait.assignment.funds.dto.OrderRequest;
 import com.atait.assignment.funds.dto.OrderResponse;
 import com.atait.assignment.funds.entity.FundOrder;
 import com.atait.assignment.funds.entity.Instrument;
 import com.atait.assignment.funds.entity.InstrumentType;
 import com.atait.assignment.funds.entity.ValidationRule;
-import com.atait.assignment.funds.exception.InstrumentValidationRuleAbsentException;
 import com.atait.assignment.funds.exception.NotFoundInstrumentException;
 import com.atait.assignment.funds.exception.OrderValidationException;
+import com.atait.assignment.funds.mapper.OrderMapper;
 import com.atait.assignment.funds.repository.FundOrderRepository;
 import com.atait.assignment.funds.repository.InstrumentRepository;
 import com.atait.assignment.funds.repository.ValidationRuleRepository;
 import com.atait.assignment.funds.service.NotificationService;
 import com.atait.assignment.funds.service.OrderService;
 import com.atait.assignment.funds.service.PricingService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,19 @@ public class OrderServiceImpl implements OrderService {
     private final FundOrderRepository orderRepo;
     private final PricingService pricingService;
     private final NotificationService notificationService;
+    private final OrderMapper mapper;
+
+    @Override
+    public List<OrderDto> getAllOrders() {
+        List<FundOrder> orderList = orderRepo.findAll();
+        return mapper.toDtoList(orderList);
+    }
+
+    @Override
+    public OrderDto getOrder(UUID id) {
+        Optional<FundOrder> order = orderRepo.findById(id);
+        return order.map(mapper::toDto).orElse(null);
+    }
 
     @Override
     public OrderResponse placeOrder(OrderRequest request) {
