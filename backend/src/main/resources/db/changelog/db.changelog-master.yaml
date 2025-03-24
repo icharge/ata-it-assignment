@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/db.changelog-1.2-order.yaml
   - include:
       file: db/changelog/db.changelog-1.3-initial-data.yaml
+  - include:
+      file: db/changelog/db.changelog-1.4-add-instrument-fields.yaml

@@ -4,6 +4,9 @@ import com.atait.assignment.funds.entity.InstrumentType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -19,4 +22,10 @@ public class InstrumentResponse {
     @Schema(example = "MUTUAL_FUND")
     private InstrumentType type;
 
+    private BigDecimal interestRate;
+
+    private String accountNumber;
+    private String status;
+    private LocalDateTime createdAt;
+    private LocalDate maturityDate;
 }
