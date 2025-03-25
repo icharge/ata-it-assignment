@@ -6,6 +6,7 @@ import {
   InstrumentTypeKey,
 } from "../types/Instrument";
 import { mockMutualFund } from "../mock-data/inst-mutual-fund";
+import { NavLink } from "react-router-dom";
 
 interface InstrumentSearchCriteria {
   instrumentType?: InstrumentTypeKey;
@@ -17,8 +18,14 @@ interface InstrumentSearchCriteria {
   status?: string;
 }
 
-const InstrumentSearch = () => {
-  const [activeTab, setActiveTab] = useState<InstrumentTypeKey>("MUTUAL_FUND");
+interface InstrumentSearchProps {
+  instrumentType: InstrumentTypeKey;
+}
+
+const InstrumentSearch: React.FC<InstrumentSearchProps> = ({
+  instrumentType,
+}) => {
+  const [activeTab, setActiveTab] = useState<InstrumentTypeKey>(instrumentType);
   const [criteria, setCriteria] = useState<InstrumentSearchCriteria>({});
   const [instruments, setInstruments] = useState<Instrument[]>(mockMutualFund);
   const [searchText, setSearchText] = useState("");
@@ -76,10 +83,11 @@ const InstrumentSearch = () => {
                 const isActive = activeTab === id;
                 return (
                   <li key={id}>
-                    <button
+                    <NavLink
+                      to={`/instruments/${id}`}
                       role="tab"
                       aria-selected={isActive}
-                      onClick={() => setActiveTab(id as InstrumentTypeKey)}
+                      // onClick={() => setActiveTab(id as InstrumentTypeKey)}
                       className={`
             pb-2 text-base font-medium transition-colors
             ${
@@ -94,7 +102,7 @@ const InstrumentSearch = () => {
                           id as keyof typeof InstrumentTypeDesc
                         ]
                       }
-                    </button>
+                    </NavLink>
                   </li>
                 );
               }

@@ -6,22 +6,6 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  /* return (
-    <div classNameName="min-h-screen flex flex-col bg-gray-50">
-      <header classNameName="bg-(--color-primary) text-white shadow-md">
-        <div classNameName="container mx-auto px-4 py-4">
-          <h1 classNameName="text-2xl font-bold">ATA-IT Instruments Dashboard</h1>
-        </div>
-      </header>
-      <main classNameName="flex-grow container mx-auto px-4 py-6">{children}</main>
-      <footer classNameName="bg-gray-100 text-gray-600">
-        <div classNameName="container mx-auto px-4 py-3 text-center">
-          © {new Date().getFullYear()} ATA-IT. All rights reserved.
-        </div>
-      </footer>
-    </div>
-  ); */
-
   return (
     <div className="min-h-full">
       <nav className="bg-white shadow-sm">
