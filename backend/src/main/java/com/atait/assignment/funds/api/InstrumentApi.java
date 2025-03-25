@@ -5,6 +5,7 @@ import com.atait.assignment.funds.dto.InstrumentSearchCriteria;
 import com.atait.assignment.funds.entity.InstrumentType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,8 @@ public interface InstrumentApi {
     @Operation(summary = "Search instruments",
             description = "Search instruments based on filters such as type, name, account number, months, interest rate, maturity date, and status.")
     Page<InstrumentResponse> searchInstruments(
-            InstrumentSearchCriteria criteria,
-            Pageable pageable);
+            @ParameterObject InstrumentSearchCriteria criteria,
+            @ParameterObject Pageable pageable
+    );
 
 }
