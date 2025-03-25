@@ -44,7 +44,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 
         if (criteria.getInstrumentType() != null) {
             spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("instrumentType"), criteria.getInstrumentType()));
+                    cb.equal(root.get("type"), criteria.getInstrumentType()));
         }
         if (criteria.getName() != null && !criteria.getName().isBlank()) {
             spec = spec.and((root, query, cb) ->
