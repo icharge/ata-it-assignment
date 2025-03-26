@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Instrument, InstrumentTypeKey } from "../../types/Instrument";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { formatDateTime, formatDateToDDMMYYYY } from "../../utils/date";
 
 const InstrumentSearchCriteriaSchema = z.object({
   instrumentType: z.enum(["MUTUAL_FUND", "FIXED_INCOME"]).optional(),
@@ -23,6 +24,7 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
   const activeTab = instrumentType;
 
   const {
+    getValues,
     register,
     handleSubmit,
     reset,
@@ -44,29 +46,38 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
   }
 
   const [instruments, setInstruments] = useState<Instrument[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
 
   // Build query params from criteria & activeTab
-  const buildQueryParams = useCallback((data: InstrumentSearchCriteria) => {
-    const params = new URLSearchParams();
-    params.append("instrumentType", data.instrumentType as string);
-    if (data.name) {
-      params.append("name", data.name);
-    }
+  const buildQueryParams = useCallback(
+    (data: InstrumentSearchCriteria, page: number = 0) => {
+      const params = new URLSearchParams();
+      params.append("instrumentType", data.instrumentType as string);
+      params.append("page", page.toString());
+      params.append("size", "10");
 
-    if (data.accountNumber) {
-      params.append("accountNumber", data.accountNumber);
-    }
+      if (data.name) {
+        params.append("name", data.name);
+      }
 
-    if (data.months) {
-      params.append("months", data.months.toString());
-    }
+      if (data.accountNumber) {
+        params.append("accountNumber", data.accountNumber);
+      }
 
-    if (data.interestRate) {
-      params.append("interestRate", data.interestRate.toString());
-    }
+      if (data.months) {
+        params.append("months", data.months.toString());
+      }
 
-    return params.toString();
-  }, []);
+      if (data.interestRate) {
+        params.append("interestRate", data.interestRate.toString());
+      }
+
+      return params.toString();
+    },
+    []
+  );
 
   const fetchInstruments = useCallback(async (query?: string) => {
     try {
@@ -74,9 +85,10 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
         `http://localhost:8080/api/instruments/search?${query}`
       );
       if (response.ok) {
-        // Assuming the response is a paginated result with a "content" array
         const data = await response.json();
-        setInstruments(data.content || data); // adapt based on your API response
+        setInstruments(data.content);
+        setTotalPages(data.totalPages);
+        setTotalElements(data.totalElements);
       } else {
         console.error("Error fetching instruments:", response.statusText);
       }
@@ -85,9 +97,13 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
     }
   }, []);
 
+  useEffect(() => {
+    fetchInstruments(buildQueryParams(getValues(), currentPage));
+  }, [buildQueryParams, currentPage, fetchInstruments, getValues]);
+
   const onSubmit = async (data: InstrumentSearchCriteria) => {
-    console.log(data);
-    await fetchInstruments(buildQueryParams(data));
+    setCurrentPage(0);
+    await fetchInstruments(buildQueryParams(data, 0));
   };
 
   const setValueAsNumber = useCallback((value: string) => {
@@ -183,7 +199,9 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
           </button>
           <button
             type="reset"
-            onClick={() => reset()}
+            onClick={() => {
+              reset();
+            }}
             disabled={isSubmitting}
             className="px-4 py-2 border border-[var(--color-primary)] text-[var(--color-primary)] rounded hover:bg-gray-100"
           >
@@ -214,9 +232,9 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Maturity Date
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Interest Rate
-                  </th>
+                  </th> */}
                 </>
               )}
             </tr>
@@ -230,18 +248,18 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{inst.status}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {new Date(inst.createdAt).toLocaleString()}
+                  {formatDateTime(new Date(inst.createdAt))}
                 </td>
                 {activeTab === "FIXED_INCOME" && (
                   <>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {inst.maturityDate
-                        ? new Date(inst.maturityDate).toLocaleDateString()
+                        ? formatDateToDDMMYYYY(new Date(inst.maturityDate))
                         : "-"}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    {/* <td className="px-6 py-4 whitespace-nowrap">
                       {inst.interestRate ? inst.interestRate : "-"}
-                    </td>
+                    </td> */}
                   </>
                 )}
               </tr>
@@ -249,7 +267,39 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
           </tbody>
         </table>
       </div>
-      {/* Pagination controls can be added here */}
+      {/* Pagination controls */}
+      <div className="mt-4 flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
+        <div className="flex items-center text-sm text-gray-700">
+          Showing {instruments.length ? currentPage * 10 + 1 : 0} to{" "}
+          {Math.min((currentPage + 1) * 10, totalElements)} of {totalElements}{" "}
+          results
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              const newPage = currentPage - 1;
+              setCurrentPage(newPage);
+            }}
+            disabled={currentPage === 0}
+            className="px-3 py-1 border rounded text-sm font-medium disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-700">
+            Page {currentPage + 1} of {totalPages}
+          </span>
+          <button
+            onClick={() => {
+              const newPage = currentPage + 1;
+              setCurrentPage(newPage);
+            }}
+            disabled={currentPage >= totalPages - 1}
+            className="px-3 py-1 border rounded text-sm font-medium disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
