@@ -43,6 +43,14 @@ This project demonstrates a full-stack financial instruments management system. 
     - Modern UI using Tailwind CSS with custom primary (`#01334e`) and secondary (`#ed1c24`) colors
     - Form management using React Hook Form with Zod validation
 
+## Screenshots
+
+![fe-app.png](docs/fe-app.png)
+
+
+![be-api.png](docs/be-api.png)
+
+
 ## Run demo
 Docker is required to run the demo application.
 
