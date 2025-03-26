@@ -3,7 +3,7 @@ export const InstrumentTypeDesc = {
   FIXED_INCOME: "Fixed Income",
 };
 
-export const InstrumentType = {
+export const InstrumentType: {[key: string]: InstrumentTypeKey} = {
   MUTUAL_FUND: "MUTUAL_FUND",
   FIXED_INCOME: "FIXED_INCOME",
 };
