@@ -1,54 +1,77 @@
-import { useState, useEffect, useCallback } from "react";
-import {
-  Instrument,
-  InstrumentType,
-  InstrumentTypeDesc,
-  InstrumentTypeKey,
-} from "../../types/Instrument";
-import { mockMutualFund } from "../../mock-data/inst-mutual-fund";
+import { useState, useCallback } from "react";
+import { Instrument, InstrumentTypeKey } from "../../types/Instrument";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-interface InstrumentSearchCriteria {
-  instrumentType?: InstrumentTypeKey;
-  name?: string;
-  accountNumber?: string;
-  months?: number;
-  interestRate?: number;
-  maturityDate?: string;
-  status?: string;
-}
+const InstrumentSearchCriteriaSchema = z.object({
+  instrumentType: z.enum(["MUTUAL_FUND", "FIXED_INCOME"]).optional(),
+  name: z.string().optional(),
+  accountNumber: z.string().optional(),
+  months: z.number().int().positive().optional(),
+  interestRate: z.number().gte(0).nullable(),
+  status: z.string().optional(),
+});
+
+type InstrumentSearchCriteria = z.infer<typeof InstrumentSearchCriteriaSchema>;
 
 interface InstrumentSearchProps {
   instrumentType: InstrumentTypeKey;
 }
 
 const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
-  const [activeTab, setActiveTab] = useState<InstrumentTypeKey>(instrumentType);
-  const [criteria, setCriteria] = useState<InstrumentSearchCriteria>({});
-  const [instruments, setInstruments] = useState<Instrument[]>(mockMutualFund);
-  const [searchText, setSearchText] = useState("");
+  const activeTab = instrumentType;
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting, errors },
+  } = useForm<InstrumentSearchCriteria>({
+    resolver: zodResolver(InstrumentSearchCriteriaSchema),
+    defaultValues: {
+      instrumentType,
+      name: "",
+      accountNumber: "",
+      months: 3,
+      interestRate: null,
+      status: "ACTIVE",
+    },
+  });
+
+  if (errors) {
+    console.log(errors);
+  }
+
+  const [instruments, setInstruments] = useState<Instrument[]>([]);
 
   // Build query params from criteria & activeTab
-  const buildQueryParams = useCallback(() => {
+  const buildQueryParams = useCallback((data: InstrumentSearchCriteria) => {
     const params = new URLSearchParams();
-    params.append("instrumentType", activeTab);
-    if (searchText) {
-      params.append("name", searchText);
+    params.append("instrumentType", data.instrumentType as string);
+    if (data.name) {
+      params.append("name", data.name);
     }
-    // Add more criteria as needed (e.g., accountNumber, months)
-    if (criteria.months) {
-      params.append("months", criteria.months.toString());
-    }
-    if (criteria.status) {
-      params.append("status", criteria.status);
-    }
-    return params.toString();
-  }, [activeTab, criteria.months, criteria.status, searchText]);
 
-  const fetchInstruments = useCallback(async () => {
+    if (data.accountNumber) {
+      params.append("accountNumber", data.accountNumber);
+    }
+
+    if (data.months) {
+      params.append("months", data.months.toString());
+    }
+
+    if (data.interestRate) {
+      params.append("interestRate", data.interestRate.toString());
+    }
+
+    return params.toString();
+  }, []);
+
+  const fetchInstruments = useCallback(async (query?: string) => {
     try {
-      const queryParams = buildQueryParams();
       const response = await fetch(
-        `http://localhost:8080/api/instruments/search?${queryParams}`
+        `http://localhost:8080/api/instruments/search?${query}`
       );
       if (response.ok) {
         // Assuming the response is a paginated result with a "content" array
@@ -60,17 +83,23 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
     } catch (error) {
       console.error("Error fetching instruments:", error);
     }
-  }, [buildQueryParams]);
+  }, []);
 
-  // Re-fetch instruments when activeTab or search criteria change
-  useEffect(() => {
-    // fetchInstruments();
-  }, [activeTab, criteria, fetchInstruments, searchText]);
+  const onSubmit = async (data: InstrumentSearchCriteria) => {
+    console.log(data);
+    await fetchInstruments(buildQueryParams(data));
+  };
+
+  const setValueAsNumber = useCallback((value: string) => {
+    return Number(value);
+  }, []);
 
   return (
     <div>
-      <div className="bg-white rounded-lg shadow p-6 mb-6 flex flex-wrap items-end gap-4">
-        {/* LEFT: Dynamic filters */}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-white rounded-lg shadow p-6 mb-6 flex flex-wrap items-end gap-4"
+      >
         <div className="flex flex-wrap gap-4 flex-auto">
           {activeTab === "MUTUAL_FUND" ? (
             <>
@@ -79,6 +108,7 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
                   Funds Name
                 </span>
                 <input
+                  {...register("name")}
                   type="text"
                   placeholder="Enter name"
                   className="mt-1 border border-[var(--color-primary)] rounded px-3 py-2 w-full h-10"
@@ -89,6 +119,7 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
                   Account Number
                 </span>
                 <input
+                  {...register("accountNumber")}
                   type="text"
                   placeholder="Enter account #"
                   className="mt-1 border border-[var(--color-primary)] rounded px-3 py-2 w-full h-10"
@@ -102,6 +133,7 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
                   Fixed Income Name
                 </span>
                 <input
+                  {...register("name")}
                   type="text"
                   placeholder="Enter name"
                   className="mt-1 border border-[var(--color-primary)] rounded px-3 py-2 w-full h-10"
@@ -112,7 +144,11 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
                   Interest Rate (%)
                 </span>
                 <input
+                  {...register("interestRate", {
+                    setValueAs: setValueAsNumber,
+                  })}
                   type="number"
+                  min={0}
                   placeholder="e.g. 3.25"
                   className="mt-1 border border-[var(--color-primary)] rounded px-3 py-2 w-full h-10"
                 />
@@ -122,7 +158,12 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
 
           <label className="flex flex-col flex-1 min-w-[200px]">
             <span className="text-sm font-medium text-gray-700">Timeframe</span>
-            <select className="mt-1 border border-[var(--color-primary)] rounded px-3 py-2 w-full h-10">
+            <select
+              {...register("months", {
+                setValueAs: setValueAsNumber,
+              })}
+              className="mt-1 border border-[var(--color-primary)] rounded px-3 py-2 w-full h-10"
+            >
               <option value={3}>3 months</option>
               <option value={6}>6 months</option>
               {activeTab === "FIXED_INCOME" && (
@@ -132,16 +173,24 @@ const FundSearch: React.FC<InstrumentSearchProps> = ({ instrumentType }) => {
           </label>
         </div>
 
-        {/* RIGHT: Action buttons */}
         <div className="flex gap-2">
-          <button className="px-4 py-2 bg-[var(--color-secondary)] text-white rounded hover:bg-[var(--color-secondary)/90]">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="px-4 py-2 bg-[var(--color-secondary)] text-white rounded"
+          >
             Search
           </button>
-          <button className="px-4 py-2 border border-[var(--color-primary)] text-[var(--color-primary)] rounded hover:bg-gray-100">
+          <button
+            type="reset"
+            onClick={() => reset()}
+            disabled={isSubmitting}
+            className="px-4 py-2 border border-[var(--color-primary)] text-[var(--color-primary)] rounded hover:bg-gray-100"
+          >
             Reset
           </button>
         </div>
-      </div>
+      </form>
 
       {/* Instruments Table */}
       <div className="bg-white rounded-lg shadow overflow-x-auto">
