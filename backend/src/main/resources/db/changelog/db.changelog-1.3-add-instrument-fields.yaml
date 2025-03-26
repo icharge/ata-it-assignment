@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 5
+      id: 4
       author: charge
       changes:
         - addColumn:
@@ -35,3 +35,4 @@ databaseChangeLog:
               - column:
                   name: maturity_date
                   type: DATE
+                  defaultValueComputed: current_date + interval '1 year'

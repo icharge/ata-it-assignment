@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 4
+      id: 5
       author: charge
       changes:
         - insert:
@@ -15,6 +15,15 @@ databaseChangeLog:
               - column:
                   name: type
                   value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: '4252529472'
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.5
 
         - insert:
             tableName: instrument
@@ -28,6 +37,15 @@ databaseChangeLog:
               - column:
                   name: type
                   value: INDEX_FUND
+              - column:
+                  name: account_number
+                  value: '1732467121'
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 2.0
 
         - insert:
             tableName: instrument
@@ -41,6 +59,15 @@ databaseChangeLog:
               - column:
                   name: type
                   value: FIXED_INCOME
+              - column:
+                  name: account_number
+                  value: '5948127504'
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 1.5
 
         - insert:
             tableName: validation_rule

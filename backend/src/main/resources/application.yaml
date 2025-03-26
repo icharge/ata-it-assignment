@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: funds
+  profiles:
+    active: local
   datasource:
     url: jdbc:postgresql://db:5432/funds_db
     username: pguser

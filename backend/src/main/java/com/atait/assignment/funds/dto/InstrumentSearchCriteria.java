@@ -26,9 +26,6 @@ public class InstrumentSearchCriteria {
     @Schema(description = "Interest rate (applicable for fixed income)", example = "3.5")
     private BigDecimal interestRate;
 
-    @Schema(description = "Exact maturity date (applicable for fixed income)", example = "2025-12-31")
-    private LocalDate maturityDate;
-
     @Schema(description = "Status of the instrument", example = "ACTIVE")
     private String status;
 

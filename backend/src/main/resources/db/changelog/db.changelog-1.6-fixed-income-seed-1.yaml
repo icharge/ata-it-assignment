@@ -1,0 +1,204 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: charge
+      changes:
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: ca8fb1f1-e951-4e59-8376-5ceffa58c447 }
+              - column: { name: name, value: "Olivia Bennett" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "1002456789" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.4 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: f48df69b-a6f8-4e85-bd85-b3ce6af62454 }
+              - column: { name: name, value: "Liam Mitchell" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "2013567890" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 4.1 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 5702bbb9-38bc-4894-8681-855440fde887 }
+              - column: { name: name, value: "Ava Henderson" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "3024678901" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 2.9 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: e3ed3861-c9c6-4409-ba0e-a6a4340de7c9 }
+              - column: { name: name, value: "Noah Franklin" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "4035789012" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.6 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 1a4afa37-3e82-4b44-be84-23362b549835 }
+              - column: { name: name, value: "Sophia Adams" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "5046890123" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.2 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: d815e680-8edd-42d0-9582-a715ed88e0e3 }
+              - column: { name: name, value: "Elijah Turner" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "6057901234" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 4.0 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 47147f34-9119-4c9e-beeb-6dafd95572da }
+              - column: { name: name, value: "Isabella Nguyen" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "7068012345" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.7 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 4c4f9fdc-d1b6-443e-b486-7e402c46e729 }
+              - column: { name: name, value: "James Rivera" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "8079123456" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.3 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: c39a37a5-78cd-4289-bbde-c85f68596595 }
+              - column: { name: name, value: "Mia Torres" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "9080234567" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.8 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: ffc0debf-c76a-4e7d-b8a9-7bb45189bb06 }
+              - column: { name: name, value: "Lucas Simmons" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "1091345678" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.1 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: e2c0322e-e572-4a2a-bf18-173932f3c4cb }
+              - column: { name: name, value: "Charlotte Morgan" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "2102456789" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 2.9 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 2991e3b2-f322-48a6-a01c-3025f75c977f }
+              - column: { name: name, value: "Benjamin Patel" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "3213567890" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.0 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: b27214a1-3c07-440a-865f-3f5523a0000d }
+              - column: { name: name, value: "Amelia Scott" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "4324678901" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.5 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: b8a06ede-19e4-4106-99df-b623c574fb7a }
+              - column: { name: name, value: "Henry Martinez" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "5435789012" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.2 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 4c41334d-1abd-46e0-a170-8c5dabe9c4f1 }
+              - column: { name: name, value: "Grace Hughes" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "6546890123" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.9 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 8ecc8998-80de-4227-a67c-0a836fabcacf }
+              - column: { name: name, value: "Logan Ross" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "7657901234" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.3 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: c290b21c-a3f7-4664-8e34-512720e60550 }
+              - column: { name: name, value: "Ella Foster" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "8768012345" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.4 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: fdd87aba-bf9b-45c6-a365-2e9dee3b2843 }
+              - column: { name: name, value: "Daniel Price" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "9879123456" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 4.2 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 0081abf0-5f9f-4bf3-9bec-0e6706692e59 }
+              - column: { name: name, value: "Scarlett Wood" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "0980234567" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 2.8 }
+
+        - insert:
+            tableName: instrument
+            columns:
+              - column: { name: id, value: 8fcaa0e6-1d09-4568-9c2e-4aa7624d856c }
+              - column: { name: name, value: "Jack Coleman" }
+              - column: { name: type, value: FIXED_INCOME }
+              - column: { name: account_number, value: "1091345678" }
+              - column: { name: status, value: ACTIVE }
+              - column: { name: interest_rate, value: 3.0 }

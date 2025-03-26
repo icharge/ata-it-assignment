@@ -1,0 +1,425 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: charge
+      changes:
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: b32cdf74-74c7-4743-9898-31be7410c0e3
+              - column:
+                  name: name
+                  value: "Mutual Fund 1"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "0247913568"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.5
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 086fc615-c103-4def-beba-845f434d7609
+              - column:
+                  name: name
+                  value: "Mutual Fund 2"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "9136802457"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.6
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: c7c86a1c-a73e-4171-af66-22fea1b5a31b
+              - column:
+                  name: name
+                  value: "Mutual Fund 3"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "8025791346"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.5
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 1d352a36-6583-41af-a96c-6a2d2af8ac88
+              - column:
+                  name: name
+                  value: "Mutual Fund 4"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "7914680235"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.7
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 6345d38d-82ac-4992-97ab-fb5faca5859b
+              - column:
+                  name: name
+                  value: "Mutual Fund 5"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "6803579124"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.6
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 403318e9-cea6-4338-ade7-9746bed8d8df
+              - column:
+                  name: name
+                  value: "Mutual Fund 6"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "5792468013"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.8
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 898148a2-306e-4d42-94e8-375e2c1840e5
+              - column:
+                  name: name
+                  value: "Mutual Fund 7"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "4681357902"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.5
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 52c1de63-6486-4d29-a155-6069e245cc85
+              - column:
+                  name: name
+                  value: "Mutual Fund 8"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "3579246801"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.7
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 24b9acc4-01a4-4a97-bf4a-ec2caec0edf4
+              - column:
+                  name: name
+                  value: "Mutual Fund 9"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "2468135790"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.6
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: bd6e8b50-405e-4511-af25-b175f0b3db0d
+              - column:
+                  name: name
+                  value: "Mutual Fund 10"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "1357924680"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.5
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 9a025c58-d500-479b-8877-0a25d1bd4100
+              - column:
+                  name: name
+                  value: "Mutual Fund 11"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "0123456789"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.8
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: d2412353-d70e-42d4-8b06-a726fc3c12bc
+              - column:
+                  name: name
+                  value: "Mutual Fund 12"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "9012345678"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.7
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: c826b12a-7f40-423b-a14c-d96bb361ce52
+              - column:
+                  name: name
+                  value: "Mutual Fund 13"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "8901234567"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.6
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: b482ffdc-2bef-4a54-bbf4-f2334e13750f
+              - column:
+                  name: name
+                  value: "Mutual Fund 14"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "7890123456"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.5
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 3ac9da90-214d-4f31-8057-433720080a55
+              - column:
+                  name: name
+                  value: "Mutual Fund 15"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "6789012345"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.8
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 77af62cb-5436-4037-8e3b-f65e3994c909
+              - column:
+                  name: name
+                  value: "Mutual Fund 16"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "5678901234"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.7
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: cbc21733-d977-434e-8bd0-1af27e18c298
+              - column:
+                  name: name
+                  value: "Mutual Fund 17"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "4567890123"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.6
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 3524a9fb-11d9-4a7a-9d4d-a70fa9ec4f9d
+              - column:
+                  name: name
+                  value: "Mutual Fund 18"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "3456789012"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.8
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 6bceea48-1360-4960-b08e-d2f92debb892
+              - column:
+                  name: name
+                  value: "Mutual Fund 19"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "2345678901"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.5
+        - insert:
+            tableName: instrument
+            columns:
+              - column:
+                  name: id
+                  value: 365ff329-e448-46a6-911e-460ec6a25c6f
+              - column:
+                  name: name
+                  value: "Mutual Fund 20"
+              - column:
+                  name: type
+                  value: MUTUAL_FUND
+              - column:
+                  name: account_number
+                  value: "1234567890"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: interest_rate
+                  value: 3.7

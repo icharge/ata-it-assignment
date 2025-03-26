@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,28 +51,16 @@ public class InstrumentServiceImpl implements InstrumentService {
         }
         if (criteria.getAccountNumber() != null && !criteria.getAccountNumber().isBlank()) {
             spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("accountNumber"), criteria.getAccountNumber()));
+                    cb.like(cb.lower(root.get("accountNumber")), "%" + criteria.getAccountNumber().toLowerCase() + "%"));
         }
         if (criteria.getMonths() != null) {
-            if (criteria.getInstrumentType() != null && criteria.getInstrumentType() == InstrumentType.FIXED_INCOME) {
-                // For Fixed Income, filter by maturityDate within next 'months'
-                LocalDate cutoff = LocalDate.now().plusMonths(criteria.getMonths());
-                spec = spec.and((root, query, cb) ->
-                        cb.lessThanOrEqualTo(root.get("maturityDate"), cutoff));
-            } else {
-                // For other types, filter by createdAt within last 'months'
-                LocalDateTime cutoff = LocalDateTime.now().minusMonths(criteria.getMonths());
-                spec = spec.and((root, query, cb) ->
-                        cb.greaterThan(root.get("createdAt"), cutoff));
-            }
+            LocalDateTime cutoff = LocalDateTime.now().minusMonths(criteria.getMonths());
+            spec = spec.and((root, query, cb) ->
+                    cb.greaterThan(root.get("createdAt"), cutoff));
         }
         if (criteria.getInterestRate() != null) {
             spec = spec.and((root, query, cb) ->
                     cb.equal(root.get("interestRate"), criteria.getInterestRate()));
-        }
-        if (criteria.getMaturityDate() != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("maturityDate"), criteria.getMaturityDate()));
         }
         if (criteria.getStatus() != null && !criteria.getStatus().isBlank()) {
             spec = spec.and((root, query, cb) ->
