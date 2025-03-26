@@ -75,7 +75,7 @@ and Swagger-UI http://localhost:8080/docs/swagger-ui/index.html
 ### Backend Setup
 
 1. **Prerequisites:**
-    - Java 11+
+    - Java 23
     - Maven or Gradle
     - A relational database (e.g., PostgreSQL, MySQL)
 
