@@ -46,9 +46,21 @@ This project demonstrates a full-stack financial instruments management system. 
 ## Run demo
 Docker is required to run the demo application.
 
+### Build the Docker compose
+
+```bash
+docker-compose build
+````
+
+### Run the Docker compose
+
 ```bash
 docker-compose up
-````
+```
+
+then access the FE application at http://localhost:3000
+for the BE application at http://localhost:8080
+and Swagger-UI http://localhost:8080/docs/swagger-ui/index.html
 
 ## Development
 
